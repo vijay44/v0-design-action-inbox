@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    /* Atlassian Design System tokens */
+    --background: 210 17% 98%;
+    --foreground: 214 20% 14%;
+    --card: 0 0% 100%;
+    --card-foreground: 214 20% 14%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 214 20% 14%;
+    --primary: 216 85% 40%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 218 17% 95%;
+    --secondary-foreground: 214 20% 14%;
+    --muted: 216 14% 93%;
+    --muted-foreground: 214 11% 43%;
+    --accent: 216 85% 40%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 65% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 218 18% 88%;
+    --input: 218 18% 88%;
+    --ring: 216 85% 40%;
+    --radius: 0.1875rem;
+
+    /* Atlassian semantic colors */
+    --ads-blue-subtle: 214 83% 95%;
+    --ads-blue-bold: 216 85% 40%;
+    --ads-red-subtle: 0 100% 95%;
+    --ads-red-bold: 0 65% 51%;
+    --ads-yellow-subtle: 47 100% 91%;
+    --ads-yellow-bold: 36 75% 43%;
+    --ads-green-subtle: 144 59% 92%;
+    --ads-green-bold: 152 56% 31%;
+    --ads-teal-subtle: 182 55% 91%;
+    --ads-teal-bold: 185 55% 32%;
+    --ads-neutral-subtle: 216 14% 93%;
+    --ads-neutral-bold: 214 11% 43%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
