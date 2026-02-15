@@ -71,6 +71,8 @@ const config: Config = {
           "teal-bold": "hsl(var(--ads-teal-bold))",
           "neutral-subtle": "hsl(var(--ads-neutral-subtle))",
           "neutral-bold": "hsl(var(--ads-neutral-bold))",
+          "purple-subtle": "hsl(var(--ads-purple-subtle))",
+          "purple-bold": "hsl(var(--ads-purple-bold))",
         },
       },
       borderRadius: {

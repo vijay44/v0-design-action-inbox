@@ -4,6 +4,21 @@ export type Priority = "P0" | "P1" | "P2" | "P3" | "P4";
 export type Sentiment = "Urgent" | "Negative" | "Neutral" | "Positive";
 export type Source = "jira" | "confluence";
 
+export type ActionType =
+  | "Approve"
+  | "Review"
+  | "Respond"
+  | "Investigate"
+  | "Acknowledge"
+  | "Decide";
+export type ImpactScope =
+  | "Customer"
+  | "Team"
+  | "Revenue"
+  | "Infrastructure"
+  | "Security"
+  | "Delivery";
+
 export interface ActionItem {
   id: string;
   issueKey: string;
@@ -13,6 +28,12 @@ export interface ActionItem {
   urgency: Urgency;
   priority: Priority;
   sentiment: Sentiment;
+  /** AI-classified recommended action */
+  actionType: ActionType;
+  /** AI-classified blast radius */
+  impactScope: ImpactScope;
+  /** AI-generated contextual hint */
+  hint: string;
   author: {
     name: string;
     avatarUrl: string;
@@ -35,6 +56,9 @@ export const mockActionItems: ActionItem[] = [
     urgency: "Critical",
     priority: "P0",
     sentiment: "Urgent",
+    actionType: "Investigate",
+    impactScope: "Customer",
+    hint: "Login system fully blocked; all users affected",
     author: { name: "Vijendran Selvarajah", avatarUrl: "" },
     commentText:
       "URGENT: The login system is completely broken! Users cannot access their accounts. This is a critical bug that needs immediate attention.",
@@ -52,6 +76,9 @@ export const mockActionItems: ActionItem[] = [
     urgency: "Critical",
     priority: "P2",
     sentiment: "Neutral",
+    actionType: "Acknowledge",
+    impactScope: "Team",
+    hint: "Routine classification test; no action needed",
     author: { name: "Vijendran Selvarajah", avatarUrl: "" },
     commentText: "NOT URGENT: Test classification logging",
     timestamp: "Feb 5, 2026, 7:12 PM",
@@ -69,6 +96,9 @@ export const mockActionItems: ActionItem[] = [
     urgency: "High",
     priority: "P1",
     sentiment: "Negative",
+    actionType: "Respond",
+    impactScope: "Infrastructure",
+    hint: "Production 429 errors; retry logic may be misconfigured",
     author: { name: "Sarah Chen", avatarUrl: "" },
     commentText:
       "@you What rate limit strategy are we using for the external API calls? The current implementation seems to be hitting 429s in production. Can you check the retry logic?",
@@ -86,6 +116,9 @@ export const mockActionItems: ActionItem[] = [
     urgency: "High",
     priority: "P1",
     sentiment: "Negative",
+    actionType: "Investigate",
+    impactScope: "Customer",
+    hint: "12s load time for power users; needs pagination or virtualization",
     author: { name: "Marcus Johnson", avatarUrl: "" },
     commentText:
       "The dashboard is taking 12+ seconds to load for users with more than 500 items. We need to implement virtual scrolling or pagination ASAP.",
@@ -103,6 +136,9 @@ export const mockActionItems: ActionItem[] = [
     urgency: "Medium",
     priority: "P2",
     sentiment: "Neutral",
+    actionType: "Review",
+    impactScope: "Delivery",
+    hint: "Over-commitment risk on infra migration timeline",
     author: { name: "Emily Rodriguez", avatarUrl: "" },
     commentText:
       "@you Can you review the resource allocation table in section 3? I think we might be over-committing on the infrastructure migration timeline.",
@@ -120,6 +156,9 @@ export const mockActionItems: ActionItem[] = [
     urgency: "Critical",
     priority: "P0",
     sentiment: "Urgent",
+    actionType: "Investigate",
+    impactScope: "Delivery",
+    hint: "SMTP config change blocks release pipeline",
     author: { name: "David Kim", avatarUrl: "" },
     commentText:
       "BLOCKER: Email service is down in staging. No emails are being sent. This blocks the entire release pipeline. Need your input on the SMTP config changes.",
@@ -137,6 +176,9 @@ export const mockActionItems: ActionItem[] = [
     urgency: "Medium",
     priority: "P2",
     sentiment: "Neutral",
+    actionType: "Review",
+    impactScope: "Infrastructure",
+    hint: "Verify new ES mapping compatibility before merge",
     author: { name: "Anika Patel", avatarUrl: "" },
     commentText:
       "I've updated the Elasticsearch mapping as discussed. Can you verify the new index schema works with the existing query builders before I merge?",
@@ -155,6 +197,9 @@ export const mockActionItems: ActionItem[] = [
     urgency: "Low",
     priority: "P3",
     sentiment: "Positive",
+    actionType: "Acknowledge",
+    impactScope: "Security",
+    hint: "Pen test passed; no critical vulnerabilities",
     author: { name: "James Wilson", avatarUrl: "" },
     commentText:
       "FYI - The penetration test results are in. No critical vulnerabilities found. Full report attached for your review.",
@@ -173,6 +218,9 @@ export const mockActionItems: ActionItem[] = [
     urgency: "Medium",
     priority: "P2",
     sentiment: "Neutral",
+    actionType: "Respond",
+    impactScope: "Delivery",
+    hint: "Deploy step bottleneck; parallelization opportunity",
     author: { name: "Lisa Park", avatarUrl: "" },
     commentText:
       "The build times have improved by 40% after the caching changes. However, the deploy step still takes 8 minutes. Can we parallelize the asset upload?",
@@ -190,6 +238,9 @@ export const mockActionItems: ActionItem[] = [
     urgency: "High",
     priority: "P1",
     sentiment: "Negative",
+    actionType: "Approve",
+    impactScope: "Customer",
+    hint: "230 failed records; sign-off needed before prod re-run",
     author: { name: "Tom Zhang", avatarUrl: "" },
     commentText:
       "The migration script failed for 230 records due to schema mismatch. I've identified the issue but need your sign-off on the fix before re-running on production data.",
@@ -207,6 +258,9 @@ export const mockActionItems: ActionItem[] = [
     urgency: "High",
     priority: "P1",
     sentiment: "Negative",
+    actionType: "Decide",
+    impactScope: "Customer",
+    hint: "2.3% crash rate spike; rollback vs hotfix decision",
     author: { name: "Rachel Adams", avatarUrl: "" },
     commentText:
       "Crash rate spiked to 2.3% after the last release. Stack traces point to the new image caching module. Rollback or hotfix needed.",
@@ -224,6 +278,9 @@ export const mockActionItems: ActionItem[] = [
     urgency: "Low",
     priority: "P3",
     sentiment: "Neutral",
+    actionType: "Respond",
+    impactScope: "Team",
+    hint: "API docs may be stale; clarify filtering approach",
     author: { name: "Kevin O'Brien", avatarUrl: "" },
     commentText:
       "The REST API docs seem outdated for the /users endpoint. Are we still supporting query params for filtering, or did we switch to POST body only?",
@@ -241,6 +298,9 @@ export const mockActionItems: ActionItem[] = [
     urgency: "Low",
     priority: "P4",
     sentiment: "Positive",
+    actionType: "Acknowledge",
+    impactScope: "Team",
+    hint: "Smooth rollout; monitoring in place",
     author: { name: "Natalie Green", avatarUrl: "" },
     commentText:
       "Deployed the new feature flag SDK to all services. Zero issues so far. Monitoring dashboards are set up. Just keeping you in the loop.",
@@ -258,6 +318,9 @@ export const mockActionItems: ActionItem[] = [
     urgency: "Critical",
     priority: "P0",
     sentiment: "Urgent",
+    actionType: "Investigate",
+    impactScope: "Infrastructure",
+    hint: "Connection pool exhausted under load; immediate tuning required",
     author: { name: "Chris Butler", avatarUrl: "" },
     commentText:
       "Connection pool is exhausting under load. Getting 'too many connections' errors in production. We need to tune the pool size or implement connection recycling immediately.",
@@ -275,6 +338,9 @@ export const mockActionItems: ActionItem[] = [
     urgency: "Medium",
     priority: "P3",
     sentiment: "Neutral",
+    actionType: "Review",
+    impactScope: "Security",
+    hint: "New RBAC model needs review before team sync",
     author: { name: "Diana Foster", avatarUrl: "" },
     commentText:
       "I've drafted the new RBAC permission model. Shared the design doc in Confluence. Would appreciate your review before the team sync on Thursday.",
@@ -292,6 +358,9 @@ export const mockActionItems: ActionItem[] = [
     urgency: "Medium",
     priority: "P2",
     sentiment: "Neutral",
+    actionType: "Decide",
+    impactScope: "Infrastructure",
+    hint: "Failed webhooks silently dropped; DLQ decision needed",
     author: { name: "Alex Moreno", avatarUrl: "" },
     commentText:
       "@you Are we implementing dead letter queues for failed webhook deliveries? The current implementation just drops them after 3 retries. What's the expected behavior?",

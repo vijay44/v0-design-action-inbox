@@ -10,104 +10,7 @@ import {
   Clock,
   User,
 } from "lucide-react";
-
-function LozengeChip({
-  label,
-  variant,
-}: {
-  label: string;
-  variant:
-    | "red"
-    | "yellow"
-    | "blue"
-    | "teal"
-    | "green"
-    | "neutral";
-}) {
-  const colorMap = {
-    red: "bg-ads-red-subtle text-ads-red-bold",
-    yellow: "bg-ads-yellow-subtle text-ads-yellow-bold",
-    blue: "bg-ads-blue-subtle text-ads-blue-bold",
-    teal: "bg-ads-teal-subtle text-ads-teal-bold",
-    green: "bg-ads-green-subtle text-ads-green-bold",
-    neutral: "bg-ads-neutral-subtle text-ads-neutral-bold",
-  };
-
-  return (
-    <span
-      className={cn(
-        "inline-flex items-center rounded-sm px-1.5 py-0.5 text-[11px] font-bold uppercase leading-tight tracking-wide",
-        colorMap[variant]
-      )}
-    >
-      {label}
-    </span>
-  );
-}
-
-function getUrgencyVariant(urgency: string) {
-  switch (urgency) {
-    case "Critical":
-      return "red";
-    case "High":
-      return "yellow";
-    case "Medium":
-      return "blue";
-    case "Low":
-      return "neutral";
-    default:
-      return "neutral" as const;
-  }
-}
-
-function getCategoryVariant(category: string) {
-  switch (category) {
-    case "Blocker":
-      return "red";
-    case "Bug":
-      return "yellow";
-    case "Question":
-      return "teal";
-    case "Task":
-      return "blue";
-    case "Info":
-      return "neutral";
-    default:
-      return "neutral" as const;
-  }
-}
-
-function getSentimentVariant(sentiment: string) {
-  switch (sentiment) {
-    case "Urgent":
-      return "red";
-    case "Negative":
-      return "yellow";
-    case "Neutral":
-      return "neutral";
-    case "Positive":
-      return "green";
-    default:
-      return "neutral" as const;
-  }
-}
-
-function getPriorityVariant(priority: string) {
-  switch (priority) {
-    case "P0":
-      return "red";
-    case "P1":
-      return "yellow";
-    case "P2":
-      return "blue";
-    case "P3":
-      return "neutral";
-    case "P4":
-      return "neutral";
-    default:
-      return "neutral" as const;
-  }
-}
+import { ClassificationBadges } from "./classification-badges";
 
 const sourceIcon = {
   jira: (
@@ -212,24 +115,9 @@ export function ActionItemCard({
 
       {/* Card body */}
       <div className="px-4 py-3">
-        {/* Lozenge row */}
-        <div className="mb-2 flex flex-wrap items-center gap-1.5">
-          <LozengeChip
-            label={item.urgency}
-            variant={getUrgencyVariant(item.urgency)}
-          />
-          <LozengeChip
-            label={item.priority}
-            variant={getPriorityVariant(item.priority)}
-          />
-          <LozengeChip
-            label={item.category}
-            variant={getCategoryVariant(item.category)}
-          />
-          <LozengeChip
-            label={item.sentiment}
-            variant={getSentimentVariant(item.sentiment)}
-          />
+        {/* AI Classification Badges */}
+        <div className="mb-2.5">
+          <ClassificationBadges item={item} />
         </div>
 
         {/* Comment body */}
